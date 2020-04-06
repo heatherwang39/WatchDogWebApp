@@ -1,2 +1,3 @@
 *.mp4
-app/static/
+app/static/*
+frames
