@@ -2,8 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8b76862-ec5a-4e3e-8f65-dd01b6a74856" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586144973.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586144973/frame0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586144973/frame1000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145031.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145031/frame0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145031/frame1000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145087.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145087/frame0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145087/frame1000.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145218.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145218/frame0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145218/frame1200.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145218/frame1600.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145218/frame400.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145218/frame800.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145320.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145365.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145365/frame0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145365/frame1200.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145365/frame1600.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145365/frame400.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/1586145365/frame800.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +37,9 @@
         <option value="HTML File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1a0diPl67wNs5Nf1q4ZNLZdzJ5t" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
