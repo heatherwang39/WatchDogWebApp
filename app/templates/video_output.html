@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>video_output</title>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 50%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+</head>
+<body>
+    <h2>Result for the video</h2>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>#people</th>
+      </tr>
+        {%for i in range(0, len)%}
+            <tr>
+                <th>{{plotx[i]}}</th>
+                <th>{{ploty[i]}}</th>
+            </tr>
+        {%endfor%}
+    </table>
+
+</body>
+</html>
