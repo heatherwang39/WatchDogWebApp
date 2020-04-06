@@ -27,11 +27,17 @@
       <tr>
         <th>Time</th>
         <th>#people</th>
+          <th>View Details</th>
       </tr>
         {%for i in range(0, len)%}
             <tr>
                 <th>{{plotx[i]}}</th>
                 <th>{{ploty[i]}}</th>
+                <td>
+                   <form name="f2" action >
+                        <input id="Detail" type="submit" name="Detail" value="Detail" />
+                   </form>
+                </td>
             </tr>
         {%endfor%}
     </table>
