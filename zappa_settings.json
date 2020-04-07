@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "app.webapp",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "project_name": "assignment3",
+        "runtime": "python3.7",
+        "s3_bucket": "a3user"
+    }
+}

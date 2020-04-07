@@ -1,3 +1,4 @@
+import copy
 
 from flask import render_template, request
 from app import webapp
@@ -8,6 +9,7 @@ import BaiduPeopleCounter as PC
 import ciso8601
 import response_processing as RP
 import image_process as ip
+import S3_service as S3
 import cv2
 import datetime
 
@@ -25,10 +27,13 @@ def upload_file():
    if request.method == 'POST':
       global filename, filedir, real_filename, video_period
       f = request.files['file']
+      print(type(f))
       filename = str(int(time.time()))
       real_filename = f.filename
+      f.seek(0)
       filedir = "app/static/"+filename+".mp4"
       f.save(filedir)
+      #S3.upload_file(f, filename=filename+".mp4")
       video_period = vp.video_info(filedir)
       format_period = str(timedelta(seconds=video_period))
       return render_template("video_config.html", filename = real_filename, Video_length = format_period)
