@@ -34,13 +34,13 @@
                 <th>{{plotx[i]}}</th>
                 <th>{{ploty[i]}}</th>
                 <td>
-                   <form name="f2" action >
+                   <form action = "Video_detail" method = "POST" enctype = "multipart/form-data">
+                        <input type="hidden" id="image_name" name="image_name" value={{image_count[i]}}>
                         <input id="Detail" type="submit" name="Detail" value="Detail" />
                    </form>
                 </td>
             </tr>
         {%endfor%}
     </table>
-
 </body>
 </html>

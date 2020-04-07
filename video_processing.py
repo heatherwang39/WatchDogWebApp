@@ -2,6 +2,7 @@ import cv2
 import image_process as IP
 import BaiduPeopleCounter as BP
 from datetime import datetime, timedelta
+import time
 import matplotlib.pyplot as plt
 import os
 """
@@ -22,7 +23,6 @@ def video_info(file_name):
   return period
 
 def video_number_processing(file_name, file_dir, interval, options, begin_timestamp=-1):
-
     vidcap = cv2.VideoCapture(file_dir)
     count = 0
     fps = vidcap.get(cv2.CAP_PROP_FPS)
@@ -31,22 +31,26 @@ def video_number_processing(file_name, file_dir, interval, options, begin_timest
     interval_frames = interval * fps
     plotx = []
     ploty = []
+    image_addr= []
     os.mkdir("app/static/"+file_name)
+    os.mkdir("app/static/" + file_name+"_processed")
     while True:
       success, image = vidcap.read()
       if not success:
         break
       if count % interval_frames == 0:
         cv2.imwrite("app/static/"+file_name+"/frame%d.jpg" % count, image)  # save frame as JPEG file
+        image_addr.append(count)
         if options == 1:
           img_64 = IP.cv_to_64(image)
-          people_num = BP.people_counting(img_64)[0]
+          people_num, image_out = BP.people_counting(img_64)
+          cv2.imwrite("app/static/" + file_name + "_processed/frame%d.jpg" % count, image_out)
           frame_time = begin_timestamp + count / fps
           print("At " + str(datetime.fromtimestamp(int(frame_time))) + ", there are " + str(people_num) + " people")
           plotx.append(str(datetime.fromtimestamp(int(frame_time)).time()))
           ploty.append(int(people_num))
       count += 1
-    return plotx, ploty
+    return plotx, ploty, image_addr
 
 def video_processing(file_name, interval, options, end_timestamp = -1):
 
@@ -64,7 +68,7 @@ def video_processing(file_name, interval, options, end_timestamp = -1):
     if not success:
       break
     if count%interval_frames == 0:
-      cv2.imwrite("temp/frame%d.jpg" % count, image)     # save frame as JPEG file
+      cv2.imwrite("temp/frame%d.jpg" % count, image)  # save frame as JPEG file
       if options == 1:
         img_64 = IP.cv_to_64(image)
         people_num = BP.people_counting(img_64)[0]

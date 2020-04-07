@@ -10,11 +10,14 @@ import image_process as IP
 人流量统计
 '''
 
-def BaiduImageProcessing(img):
+def BaiduImageProcessing(dirDir):
 
     request_url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_attr"
     request_url_num = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_num"
     # 二进制方式打开图片文件
+    f = open(dirDir, 'rb')
+    img = base64.b64encode(f.read())
+
     typ = "gender,age,bag,smoke,face_mask,carrying_item"
     access_token = '24.ddcfced251cc6d32aa4ab615c7760067.2592000.1588622521.282335-19264077'
     headers = {'content-type': 'application/x-www-form-urlencoded'}
@@ -23,14 +26,16 @@ def BaiduImageProcessing(img):
     request_url_num = request_url_num + "?access_token=" + access_token
     response_num = requests.post(request_url_num, data=params_num, headers=headers)
     img_out = None
+    ret_num = None
     if response_num:
-        ret = response_num.json()
-        img_out = IP.cv_from_64(ret["image"])
-        print("Detected People: "+str(ret["person_num"]))
+        ret_num = response_num.json()
+        img_out = IP.cv_from_64(ret_num["image"])
+        print("Detected People: "+str(ret_num["person_num"]))
 
     params = {"image":img, "type":typ}
     request_url = request_url + "?access_token=" + access_token
     response = requests.post(request_url, data=params, headers=headers)
+    ret = None
     if response:
         ret = response.json()
         print("Detailed Detected People: "+str(ret["person_num"]))
@@ -43,9 +48,9 @@ def BaiduImageProcessing(img):
             for attr in attrs:
                 print(attr+": "+attrs[attr]['name'])
             print()
-    return img_out
+    return img_out,ret,ret_num
 
-def people_counting(img, image = False):
+def people_counting(img, image = True):
     request_url_num = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_num"
     access_token = '24.ddcfced251cc6d32aa4ab615c7760067.2592000.1588622521.282335-19264077'
     headers = {'content-type': 'application/x-www-form-urlencoded'}
@@ -63,12 +68,13 @@ def people_counting(img, image = False):
         count = ret["person_num"]
         if image == True:
             img_out = IP.cv_from_64(ret["image"])
-
     return count, img_out
 
-def people_details(img):
+def people_details(dirDir):
     request_url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_attr"
     # 二进制方式打开图片文件
+    f = open(dirDir, 'rb')
+    img = base64.b64encode(f.read())
     typ = "gender,age,bag,smoke,face_mask,carrying_item"
     access_token = '24.ddcfced251cc6d32aa4ab615c7760067.2592000.1588622521.282335-19264077'
     headers = {'content-type': 'application/x-www-form-urlencoded'}
@@ -77,4 +83,4 @@ def people_details(img):
     response = requests.post(request_url, data=params, headers=headers)
     if response:
         ret = response.json()
-        return ret["person_num"], ret["person_info"]
+        return ret

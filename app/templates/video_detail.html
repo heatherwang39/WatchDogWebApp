@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>video_detail</title>
+</head>
+<body>
+    {% if person_num == 0%}
+        <h1>Nobody can be analyzed in detail</h1>
+    {% elif person_num == 1%}
+        <h1>One person can be analyzed in detail</h1>
+    {% else %}
+        <h1>{{person_num}} people can be analyzed in detail</h1>
+    {% endif%}
+    <br>
+    <img src="{{ processed_address }}" alt="User Image">
+    <br><br>
+    {% for person in person_list%}
+        <h2>Person id:{{person['person_id']}}</h2>
+        <h3>Gender: {{person['gender']}}</h3>
+        <h3>Age: {{person['age']}}</h3>
+        <h3>Carrying item: {{person['carrying_item']}}</h3>
+        <h3>Bag: {{person['bag']}}</h3>
+        <h3>Smoking: {{person['smoke']}}</h3>
+        <h3>Face Mask: {{person['face_mask']}}</h3>
+    {% endfor %}
+
+</body>
+</html>
