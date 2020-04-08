@@ -11,6 +11,7 @@
         "debug": true,
         "log_level": "DEBUG",
         "http_methods": ["GET","POST"],
-        "use_precompiled_packages": true
+        "use_precompiled_packages": true,
+        "timeout_seconds":900
     }
 }

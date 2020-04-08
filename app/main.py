@@ -76,3 +76,5 @@ def video_details():
       processed_response = RP.detail_processing(response)
       ip.image_labeling(Processed_image_addr,processed_response['person_info'], Processed_image_addr_short)
       return render_template("video_detail.html", processed_address = Processed_image_addr, person_num = processed_response['person_num'], person_list=processed_response['person_info'])
+
+
