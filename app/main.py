@@ -19,8 +19,8 @@ def main():
 @webapp.route('/uploader')
 def video_uploader():
     filename = str(int(time.time()))+'.mp4'
-    #url = 'http://0.0.0.0:5000/Video_upload_action'
-    url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
+    url = 'http://0.0.0.0:5000/Video_upload_action'
+    #url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
     fields = {'success_action_redirect': url}
     response = S3.create_presigned_post('a3user', filename, fields={'success_action_redirect':url}, conditions=[fields])
     print(response)
