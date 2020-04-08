@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<head>
-    <title>Video uploader</title>
-</head>
 <html>
-   <body>
-      <form action = "Video_upload_action" method = "POST"
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-         <input type = "submit"/>
-      </form>
-   </body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <!-- Copy the 'url' value returned by S3Client.generate_presigned_post() -->
+    <form action={{response['url']}} method="post" enctype="multipart/form-data">
+      <!-- Copy the 'fields' key:values returned by S3Client.generate_presigned_post() -->
+      <input type="hidden" name="key" value={{response['fields']['key']}} />
+      <input type="hidden" name="AWSAccessKeyId" value = {{response['fields']['AWSAccessKeyId']}} />
+      <input type="hidden" name="policy" value={{response['fields']['policy']}} />
+      <input type="hidden" name="x-amz-security-token" value={{response['fields']['x-amz-security-token']}} />
+      <input type="hidden" name="Signature" value={{response['fields']['signature']}} />
+      <input type="hidden" name="success_action_redirect" value={{url}} />
+    File:
+      <input type="file"   name="file" /> <br/>
+      <input type="submit" name="submit" value="Upload to Amazon S3" />
+    </form>
+  </body>
 </html>

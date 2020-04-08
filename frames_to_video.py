@@ -5,7 +5,7 @@ import glob
 img_array = []
 processed_array = []
 size = (0,0)
-for filename in glob.glob('frames/*.jpg'):
+for filename in glob.glob('../frames/*.jpg'):
     img = cv2.imread(filename)
     height, width, layers = img.shape
     size = (width, height)
@@ -13,6 +13,7 @@ for filename in glob.glob('frames/*.jpg'):
 
 out = cv2.VideoWriter('project.mp4', cv2.VideoWriter_fourcc(*'MP4V'), 1, size)
 
-for i in range(len(img_array)):
+# for i in range(len(img_array)):
+for i in range(2):
     out.write(img_array[i])
 out.release()

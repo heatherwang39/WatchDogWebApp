@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8b76862-ec5a-4e3e-8f65-dd01b6a74856" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/S3_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/temp.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/s3test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaiduPeopleCounter.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaiduPeopleCounter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/S3_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/S3_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/video_config.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/video_config.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/video_upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/video_upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frames_to_video.py" beforeDir="false" afterPath="$PROJECT_DIR$/frames_to_video.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/video_processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zappa_settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/zappa_settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +46,7 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.run">
-    <configuration name="frames_to_video" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="S3_service" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Assignment3" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -48,7 +58,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/frames_to_video.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/S3_service.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="image_process" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Assignment3" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/image_process.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -65,32 +96,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="response_processing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Assignment3" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/response_processing.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -120,7 +130,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="video_processing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="s3test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Assignment3" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -132,7 +142,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/video_processing.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/s3test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,10 +154,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.run" />
-        <item itemvalue="Python.response_processing" />
-        <item itemvalue="Python.frames_to_video" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.video_processing" />
+        <item itemvalue="Python.image_process" />
+        <item itemvalue="Python.S3_service" />
+        <item itemvalue="Python.s3test" />
       </list>
     </recent_temporary>
   </component>
@@ -165,42 +175,43 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="554" y="335" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586042684374">
+    <state x="554" y="335" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586232030489">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="554" y="335" key="#com.intellij.fileTypes.FileTypeChooser/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586042684374" />
-    <state x="506" y="234" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586127991851">
-      <screen x="0" y="0" width="1536" height="960" />
+    <state x="554" y="335" key="#com.intellij.fileTypes.FileTypeChooser/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586232030489" />
+    <state x="553" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586232012561">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="506" y="234" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.960@0.0.1536.960" timestamp="1586127991851" />
-    <state width="1659" height="171" key="GridCell.Tab.0.bottom" timestamp="1586225468035">
+    <state x="553" y="256" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586232012561" />
+    <state width="1659" height="171" key="GridCell.Tab.0.bottom" timestamp="1586316849359">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1515" height="153" key="GridCell.Tab.0.bottom/0.0.1536.960@0.0.1536.960" timestamp="1586150629047" />
     <state width="1515" height="378" key="GridCell.Tab.0.bottom/0.23.1536.869@0.23.1536.869" timestamp="1586055867136" />
-    <state width="1659" height="171" key="GridCell.Tab.0.bottom/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586221777096" />
-    <state width="1659" height="171" key="GridCell.Tab.0.bottom/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586225468035" />
-    <state width="1659" height="171" key="GridCell.Tab.0.center" timestamp="1586225468033">
+    <state width="1659" height="171" key="GridCell.Tab.0.bottom/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586314686814" />
+    <state width="1659" height="171" key="GridCell.Tab.0.bottom/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586316849359" />
+    <state width="1659" height="171" key="GridCell.Tab.0.center" timestamp="1586316849358">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1515" height="153" key="GridCell.Tab.0.center/0.0.1536.960@0.0.1536.960" timestamp="1586150629045" />
     <state width="1515" height="378" key="GridCell.Tab.0.center/0.23.1536.869@0.23.1536.869" timestamp="1586055867135" />
-    <state width="1659" height="171" key="GridCell.Tab.0.center/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586221777094" />
-    <state width="1659" height="171" key="GridCell.Tab.0.center/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586225468033" />
-    <state width="1659" height="171" key="GridCell.Tab.0.left" timestamp="1586225468031">
+    <state width="1659" height="171" key="GridCell.Tab.0.center/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586314686812" />
+    <state width="1659" height="171" key="GridCell.Tab.0.center/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586316849358" />
+    <state width="1659" height="171" key="GridCell.Tab.0.left" timestamp="1586316849357">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1515" height="153" key="GridCell.Tab.0.left/0.0.1536.960@0.0.1536.960" timestamp="1586150629045" />
     <state width="1515" height="378" key="GridCell.Tab.0.left/0.23.1536.869@0.23.1536.869" timestamp="1586055867135" />
-    <state width="1659" height="171" key="GridCell.Tab.0.left/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586221777093" />
-    <state width="1659" height="171" key="GridCell.Tab.0.left/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586225468031" />
-    <state width="1659" height="171" key="GridCell.Tab.0.right" timestamp="1586225468034">
+    <state width="1659" height="171" key="GridCell.Tab.0.left/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586314686811" />
+    <state width="1659" height="171" key="GridCell.Tab.0.left/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586316849357" />
+    <state width="1659" height="171" key="GridCell.Tab.0.right" timestamp="1586316849359">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1515" height="153" key="GridCell.Tab.0.right/0.0.1536.960@0.0.1536.960" timestamp="1586150629046" />
     <state width="1515" height="378" key="GridCell.Tab.0.right/0.23.1536.869@0.23.1536.869" timestamp="1586055867136" />
-    <state width="1659" height="171" key="GridCell.Tab.0.right/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586221777095" />
-    <state width="1659" height="171" key="GridCell.Tab.0.right/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586225468034" />
+    <state width="1659" height="171" key="GridCell.Tab.0.right/1680.-69.1366.1001/0.0.1680.1050@0.0.1680.1050" timestamp="1586314686813" />
+    <state width="1659" height="171" key="GridCell.Tab.0.right/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586316849359" />
     <state width="1659" height="363" key="GridCell.Tab.1.bottom" timestamp="1586059331438">
       <screen x="0" y="0" width="1536" height="960" />
     </state>
@@ -221,14 +232,18 @@
     </state>
     <state width="1659" height="363" key="GridCell.Tab.1.right/0.0.1536.960@0.0.1536.960" timestamp="1586059331437" />
     <state width="1659" height="363" key="GridCell.Tab.1.right/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586043868248" />
-    <state x="341" y="164" key="SettingsEditor" timestamp="1586226159352">
+    <state x="341" y="164" key="SettingsEditor" timestamp="1586227399529">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="312" y="150" key="SettingsEditor/0.0.1536.960@0.0.1536.960" timestamp="1586125271338" />
-    <state x="341" y="164" key="SettingsEditor/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586226159352" />
+    <state x="341" y="164" key="SettingsEditor/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586227399529" />
     <state x="445" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1586125225322">
       <screen x="0" y="0" width="1536" height="960" />
     </state>
     <state x="445" y="312" key="com.intellij.ide.util.TipDialog/0.0.1536.960@0.0.1536.960" timestamp="1586125225322" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1586316617897">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/1680.-92.1366.1024/0.0.1680.1050@0.0.1680.1050" timestamp="1586316617897" />
   </component>
 </project>

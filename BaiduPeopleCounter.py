@@ -5,7 +5,7 @@ import timeit
 import cv2
 import numpy as np
 import image_process as IP
-
+import S3_service as S3
 '''
 人流量统计
 '''
@@ -70,17 +70,20 @@ def people_counting(img, image = True):
             img_out = IP.cv_from_64(ret["image"])
     return count, img_out
 
-def people_details(dirDir):
-    request_url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_attr"
-    # 二进制方式打开图片文件
-    f = open(dirDir, 'rb')
-    img = base64.b64encode(f.read())
-    typ = "gender,age,bag,smoke,face_mask,carrying_item"
-    access_token = '24.ddcfced251cc6d32aa4ab615c7760067.2592000.1588622521.282335-19264077'
-    headers = {'content-type': 'application/x-www-form-urlencoded'}
-    params = {"image": img, "type": typ}
-    request_url = request_url + "?access_token=" + access_token
-    response = requests.post(request_url, data=params, headers=headers)
-    if response:
-        ret = response.json()
-        return ret
+def people_details(dirDir, dir_short):
+
+    if S3.file_setpublic('a3user',dir_short):
+        request_url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_attr"
+        f = S3.get_image('a3user',dir_short)
+        img = base64.b64encode(f.read())
+        typ = "gender,age,bag,smoke,face_mask,carrying_item"
+        access_token = '24.ddcfced251cc6d32aa4ab615c7760067.2592000.1588622521.282335-19264077'
+        headers = {'content-type': 'application/x-www-form-urlencoded'}
+        params = {"image": img, "type": typ}
+        request_url = request_url + "?access_token=" + access_token
+        response = requests.post(request_url, data=params, headers=headers)
+        if response:
+            ret = response.json()
+            if S3.file_setprivate('a3user',dir_short):
+                print(ret)
+                return ret

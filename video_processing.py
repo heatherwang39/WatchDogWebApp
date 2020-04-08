@@ -2,7 +2,9 @@ import cv2
 import image_process as IP
 import BaiduPeopleCounter as BP
 from datetime import datetime, timedelta
+import S3_service as S3
 import time
+import boto3
 import matplotlib.pyplot as plt
 import os
 """
@@ -16,41 +18,46 @@ int options:
 begin_timestamp (optional):
   start time of the video
 """
-def video_info(file_name):
-  vidcap = cv2.VideoCapture(file_name)
-  fps = vidcap.get(cv2.CAP_PROP_FPS)
-  period = vidcap.get(cv2.CAP_PROP_FRAME_COUNT) / fps
-  return period
 
-def video_number_processing(file_name, file_dir, interval, options, begin_timestamp=-1):
-    vidcap = cv2.VideoCapture(file_dir)
-    count = 0
-    fps = vidcap.get(cv2.CAP_PROP_FPS)
-    period = vidcap.get(cv2.CAP_PROP_FRAME_COUNT) / fps
-    print("Video started at " + str(datetime.fromtimestamp(int(begin_timestamp))))
-    interval_frames = interval * fps
+def video_info(bucket_name,keyname):
+    if S3.file_setpublic(bucket_name,keyname):
+        vim = cv2.VideoCapture('https://'+bucket_name+'.s3.amazonaws.com/'+keyname)
+        fps = vim.get(cv2.CAP_PROP_FPS)
+        period = vim.get(cv2.CAP_PROP_FRAME_COUNT) / fps
+    if S3.file_setprivate(bucket_name,keyname):
+        return period
+
+def video_number_processing(file_name,bucket_name, interval, options, begin_timestamp=-1):
+    file_dir = 'https://'+bucket_name+'.s3.amazonaws.com/'+file_name
     plotx = []
     ploty = []
-    image_addr= []
-    os.mkdir("app/static/"+file_name)
-    os.mkdir("app/static/" + file_name+"_processed")
-    while True:
-      success, image = vidcap.read()
-      if not success:
-        break
-      if count % interval_frames == 0:
-        cv2.imwrite("app/static/"+file_name+"/frame%d.jpg" % count, image)  # save frame as JPEG file
-        image_addr.append(count)
-        if options == 1:
-          img_64 = IP.cv_to_64(image)
-          people_num, image_out = BP.people_counting(img_64)
-          cv2.imwrite("app/static/" + file_name + "_processed/frame%d.jpg" % count, image_out)
-          frame_time = begin_timestamp + count / fps
-          print("At " + str(datetime.fromtimestamp(int(frame_time))) + ", there are " + str(people_num) + " people")
-          plotx.append(str(datetime.fromtimestamp(int(frame_time)).time()))
-          ploty.append(int(people_num))
-      count += 1
-    return plotx, ploty, image_addr
+    image_addr = []
+    if S3.file_setpublic(bucket_name,file_name):
+        vidcap = cv2.VideoCapture(file_dir)
+        count = 0
+        fps = vidcap.get(cv2.CAP_PROP_FPS)
+        period = vidcap.get(cv2.CAP_PROP_FRAME_COUNT) / fps
+        print("Video started at " + str(datetime.fromtimestamp(int(begin_timestamp))))
+        interval_frames = interval * fps
+        timestamp = file_name.split('.')[0]
+        while True:
+          success, image = vidcap.read()
+          if not success:
+            break
+          if count % interval_frames == 0:
+            S3.upload_cvimage(image, "frame%d.jpg" % count, file_directory=timestamp + "/")
+            image_addr.append(count)
+            if options == 1:
+              img_64 = IP.cv_to_64(image)
+              people_num, image_out = BP.people_counting(img_64)
+              S3.upload_cvimage(image_out, "frame%d.jpg" % count, file_directory=timestamp + "_processed/")
+              frame_time = begin_timestamp + count / fps
+              print("At " + str(datetime.fromtimestamp(int(frame_time))) + ", there are " + str(people_num) + " people")
+              plotx.append(str(datetime.fromtimestamp(int(frame_time)).time()))
+              ploty.append(int(people_num))
+          count += 1
+    if S3.file_setprivate(bucket_name,file_name):
+        return plotx, ploty, image_addr
 
 def video_processing(file_name, interval, options, end_timestamp = -1):
 

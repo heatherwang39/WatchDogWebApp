@@ -5,6 +5,12 @@
         "profile_name": "default",
         "project_name": "assignment3",
         "runtime": "python3.7",
-        "s3_bucket": "a3user"
+        "s3_bucket": "a3user",
+        "slim_handler":true,
+        "keep_warm": false,
+        "debug": true,
+        "log_level": "DEBUG",
+        "http_methods": ["GET","POST"],
+        "use_precompiled_packages": true
     }
 }
