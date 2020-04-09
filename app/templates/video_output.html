@@ -23,6 +23,10 @@
 </head>
 <body>
     <h2>Result for the video</h2>
+    {%if finish == False%}
+    <h3>Please keeping refreshing to see more results</h3>
+    {%endif%}
+    <br>
     <table>
       <tr>
         <th>Time</th>
@@ -31,11 +35,11 @@
       </tr>
         {%for i in range(0, len)%}
             <tr>
-                <th>{{plotx[i]}}</th>
-                <th>{{ploty[i]}}</th>
+                <th>{{time_line[counts[i]]}}</th>
+                <th>{{time_count[counts[i]]}}</th>
                 <td>
                    <form action = "Video_detail" method = "POST" enctype = "multipart/form-data">
-                        <input type="hidden" id="image_name" name="image_name" value={{image_count[i]}}>
+                        <input type="hidden" id="image_name" name="image_name" value={{counts[i]}}>
                         <input id="Detail" type="submit" name="Detail" value="Detail" />
                    </form>
                 </td>

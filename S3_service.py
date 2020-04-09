@@ -28,7 +28,7 @@ def upload_file(file, bucket='a3user', filename=None, file_directory="videos/"):
     print("File uploaded to s3: " + filename)
     return True
 
-def upload_cvimage(img, filename, bucket='a3user', file_directory="videos/"):
+def upload_cvimage(img, filename, bucket='a3video', file_directory="videos/"):
     """Upload a file to an S3 bucket
 
     :param img: openCV image file in MAT

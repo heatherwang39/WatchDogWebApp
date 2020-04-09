@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import S3_service as S3
 import time
 import boto3
+import dynamodb_service as ds
 import matplotlib.pyplot as plt
 import os
 """
@@ -25,12 +26,10 @@ def video_info(bucket_name,keyname):
         fps = vim.get(cv2.CAP_PROP_FPS)
         period = vim.get(cv2.CAP_PROP_FRAME_COUNT) / fps
     if S3.file_setprivate(bucket_name,keyname):
-        return period
+        return period,fps
 
 def video_number_processing(file_name,bucket_name, interval, options, begin_timestamp=-1):
     file_dir = 'https://'+bucket_name+'.s3.amazonaws.com/'+file_name
-    plotx = []
-    ploty = []
     image_addr = []
     if S3.file_setpublic(bucket_name,file_name):
         vidcap = cv2.VideoCapture(file_dir)
@@ -40,24 +39,18 @@ def video_number_processing(file_name,bucket_name, interval, options, begin_time
         print("Video started at " + str(datetime.fromtimestamp(int(begin_timestamp))))
         interval_frames = interval * fps
         timestamp = file_name.split('.')[0]
+        samples = [int(index * interval_frames) for index in range(int(period / interval))]
+        ds.put_user_video('temp', file_name.split('.')[0], samples, {}, begin_timestamp)
         while True:
           success, image = vidcap.read()
           if not success:
             break
           if count % interval_frames == 0:
-            S3.upload_cvimage(image, "frame%d.jpg" % count, file_directory=timestamp + "/")
             image_addr.append(count)
-            if options == 1:
-              img_64 = IP.cv_to_64(image)
-              people_num, image_out = BP.people_counting(img_64)
-              S3.upload_cvimage(image_out, "frame%d.jpg" % count, file_directory=timestamp + "_processed/")
-              frame_time = begin_timestamp + count / fps
-              print("At " + str(datetime.fromtimestamp(int(frame_time))) + ", there are " + str(people_num) + " people")
-              plotx.append(str(datetime.fromtimestamp(int(frame_time)).time()))
-              ploty.append(int(people_num))
+            S3.upload_cvimage(image, "%d_unprocessed.jpg" % count, file_directory='temp'+"/"+timestamp + "/")
           count += 1
     if S3.file_setprivate(bucket_name,file_name):
-        return plotx, ploty, image_addr
+        return
 
 def video_processing(file_name, interval, options, end_timestamp = -1):
 
