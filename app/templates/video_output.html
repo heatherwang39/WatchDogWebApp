@@ -31,12 +31,14 @@
       <tr>
         <th>Time</th>
         <th>#people</th>
+          <th>Notices</th>
           <th>View Details</th>
       </tr>
         {%for i in range(0, len)%}
             <tr>
                 <th>{{time_line[counts[i]]}}</th>
                 <th>{{time_count[counts[i]]}}</th>
+                <th>{{notice_count[counts[i]]}}</th>
                 <td>
                    <form action = "Video_detail" method = "POST" enctype = "multipart/form-data">
                         <input type="hidden" id="image_name" name="image_name" value={{counts[i]}}>

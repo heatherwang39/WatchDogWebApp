@@ -18,16 +18,19 @@ import datetime
 def main():
     return render_template("main.html")
     
-@webapp.route('/uploader')
+@webapp.route('/uploader', methods = ['GET', 'POST'])
 def video_uploader():
-    filename = str(int(time.time()))+'.mp4'
-    #url = 'http://0.0.0.0:5000/Video_upload_action'
-    url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
-    fields = {'success_action_redirect': url}
-    response = S3.create_presigned_post('a3video', filename, fields={'success_action_redirect':url}, conditions=[fields])
-    print(response)
-    return render_template("video_upload.html",response = response, url = url)
-
+    if request.method == 'POST':
+       global user_id
+       user_id = str(request.form['UserID'])
+       print(user_id)
+       filename = str(int(time.time()))+'.mp4'
+       url = 'http://0.0.0.0:5000/Video_upload_action'
+       #url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
+       fields = {'success_action_redirect': url}
+       response = S3.create_presigned_post('a3video', filename, fields={'success_action_redirect':url}, conditions=[fields])
+       print(response)
+       return render_template("video_upload.html",response = response, url = url)
 
 @webapp.route('/Video_upload_action', methods = ['GET', 'POST'])
 def upload_file():
@@ -65,10 +68,10 @@ def video_processing_start():
       if start_flag == False:
          vp.video_number_processing(filename, 'a3video', interval=interval, options=1, begin_timestamp=start_time)
          start_flag = True
-      start_time, counters_int, finish_counters = ds.get_start_count_finish('temp',filename.split('.')[0])
+      start_time, counters_int,finish_counters, finish_details = ds.get_start_count_finish('temp',filename.split('.')[0])
       time_line = {}
       time_count = {}
-      counts = []
+      notice_count = {}
       count = 0
       counters_int_new = [str(index) for index in counters_int]
       for key in sorted(finish_counters.keys()):
@@ -76,11 +79,33 @@ def video_processing_start():
          frame_time = int(start_time) + int(int(key) / fps)
          time_line[str(key)] = (str(datetime.datetime.fromtimestamp(int(frame_time))))
          time_count[str(key)] = finish_counters[key]
+
+      for key in sorted(finish_details.keys()):
+         notice = ""
+         details = finish_details[key]
+         if int(details['person_num']) != 0:
+            Not_Wearing = False
+            Smoke = False
+            for person in details['person_info']:
+               if person['face_mask'] == 'Not Wearing':
+                  Not_Wearing = True
+               if person['smoke'] == 'Smoking':
+                  Smoke = True
+            if Not_Wearing == True:
+               notice = notice + "Not Wearing Face Mask"
+            if Smoke == True:
+               if notice == "":
+                  notice = notice + "Smoking"
+               else:
+                  notice = notice + ", Smoking"
+         if notice == "":
+            notice = "Everything is fine"
+         notice_count[str(key)] = notice
       if count != len(counters_int_new):
          finish = False
       else:
          finish = True
-      return render_template("video_output.html", len = count, time_line = time_line, time_count = time_count, finish = finish, counts = counters_int_new)
+      return render_template("video_output.html", len = count, time_line = time_line, time_count = time_count, finish = finish, counts = counters_int_new, notice_count = notice_count)
 
 @webapp.route('/Video_detail', methods = ['GET', 'POST'])
 def video_details():
@@ -88,12 +113,12 @@ def video_details():
       global filename
       image_count = int(request.form['image_name'])
       timestamp = filename.split('.')[0]
-      image_addr_s = 'temp'+timestamp + "/frame%d.jpg" % image_count
-      image_addr = "https://a3user.s3.amazonaws.com/"+ image_addr_s
-      Processed_image_addr_short = timestamp + "_processed/frame%d.jpg" % image_count
-      Processed_image_addr = "https://a3user.s3.amazonaws.com/"+ Processed_image_addr_short
-      response = PC.people_details(image_addr, image_addr_s)
-      processed_response = RP.detail_processing(response)
-      ip.image_labeling(Processed_image_addr,processed_response['person_info'], Processed_image_addr_short)
-      return render_template("video_detail.html", processed_address = Processed_image_addr, person_num = processed_response['person_num'], person_list=processed_response['person_info'])
+      image_addr_s = 'temp/'+timestamp + "/%d_unprocessed.jpg" % image_count
+      image_addr = "https://a3video.s3.amazonaws.com/"+ image_addr_s
+      finish_addr_s = 'temp/' + timestamp + "/%d_processed.jpg" % image_count
+      finish_addr = "https://a3video.s3.amazonaws.com/" + finish_addr_s
+      start_time, counters_int, finish_counters, finish_details = ds.get_start_count_finish('temp', filename.split('.')[0])
+      processed_response = finish_details[str(image_count)]
+      ip.image_labeling(image_addr_s,processed_response['person_info'], finish_addr_s)
+      return render_template("video_detail.html", processed_address = finish_addr, person_num = processed_response['person_num'], person_list=processed_response['person_info'])
 

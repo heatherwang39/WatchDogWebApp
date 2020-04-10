@@ -4,8 +4,10 @@
 </head>
 <html>
     <body>
-        <ul>
-            <li><a href="{{ url_for('video_uploader')}}">upload a video</a></li>
-        </ul>
+        <form action="{{ url_for('video_uploader')}}" method="post">
+          <label for="UserID">User ID:</label>
+          <input type="text" id="UserID" name="UserID"><br><br>
+          <input type="submit" value="Submit">
+        </form>
     </body>
 </html>

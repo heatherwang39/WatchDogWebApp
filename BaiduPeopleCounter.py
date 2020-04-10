@@ -85,5 +85,4 @@ def people_details(dirDir, dir_short):
         if response:
             ret = response.json()
             if S3.file_setprivate('a3user',dir_short):
-                print(ret)
                 return ret

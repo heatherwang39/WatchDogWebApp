@@ -40,7 +40,7 @@ def video_number_processing(file_name,bucket_name, interval, options, begin_time
         interval_frames = interval * fps
         timestamp = file_name.split('.')[0]
         samples = [int(index * interval_frames) for index in range(int(period / interval))]
-        ds.put_user_video('temp', file_name.split('.')[0], samples, {}, begin_timestamp)
+        ds.put_user_video('temp', file_name.split('.')[0], samples, {},{}, begin_timestamp)
         while True:
           success, image = vidcap.read()
           if not success:

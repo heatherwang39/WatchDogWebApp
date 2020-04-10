@@ -28,9 +28,9 @@ def cv_from_file(f):
     img_out = cv2.imdecode(img_array, cv2.COLOR_BGR2RGB)
     return img_out
 
-def image_labeling(image_dir, response_person, image_dir_s):
-    if S3.file_setpublic('a3user',image_dir_s):
-        f = S3.get_image('a3user', image_dir_s)
+def image_labeling(image_dir_s, response_person, finish_dir_s):
+    if S3.file_setpublic('a3video',image_dir_s):
+        f = S3.get_image('a3video', image_dir_s)
         image = cv_from_file(f)
         for people in response_person:
             location = people['location']
@@ -42,6 +42,6 @@ def image_labeling(image_dir, response_person, image_dir_s):
             cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX,
                         0.5, COLORS, 2)
         #cv2.imwrite(image_dir,image)
-        S3.upload_cvimage(image, image_dir_s, file_directory="")
-    if S3.file_setpublic('a3user', image_dir_s):
+        S3.upload_cvimage(image, finish_dir_s, file_directory="")
+    if S3.file_setpublic('a3video', finish_dir_s):
         return
