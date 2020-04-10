@@ -32,7 +32,8 @@ def video_uploader():
         global user_id
 
         # Get user_id
-        user_id = str(request.form['UserID'])
+        user_email = str(request.form['email'])
+        user_id = ds.get_userID(user_email)
 
         # Get all previous videos belongs to that user
         video_list = ds.query_user_videos(user_id)
@@ -47,9 +48,9 @@ def video_uploader():
         filename = user_id + "/" + str(int(time.time())) + '.mp4'
 
         # redirect address for local
-        url = 'http://0.0.0.0:5000/Video_upload_action'
+        #url = 'http://0.0.0.0:5000/Video_upload_action'
         # redirect address for lambda
-        # url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
+        url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
 
         # set redirect address for S3
         fields = {'success_action_redirect': url}

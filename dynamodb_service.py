@@ -2,6 +2,9 @@ from typing import List
 
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
+import time
+import random
+
 
 def table_create():
 
@@ -107,4 +110,37 @@ def query_user_videos(user_id: str):
         ret_videos.append(video['filename'])
     return ret_videos
 
+def get_userID(email):
+    # Get the service resource.
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('A3_user_map')
+    response = table.get_item(
+        Key={
+            'email': email
+        }
+    )
+
+    if 'Item' in response.keys():
+        return str(response['Item']['user_id'])
+    else:
+        user_id = str(int(time.time()))+str(random.randint(0,100))
+        put_user_id(email, user_id)
+        return user_id
+
+
+def put_user_id(email, user_id):
+    # Get the service resource.
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('A3_user_map')
+
+    table.put_item(
+        Item={
+            'email': email,
+            'user_id': user_id,
+            'saving_period': 2592000
+        }
+    )
+
+#put_user_id('temp@email.com', 1010)
+get_userID('temp@mail.com')
 # print(query_user_videos('temp'))
