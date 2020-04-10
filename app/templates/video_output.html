@@ -39,12 +39,12 @@
                 <th>{{time_line[counts[i]]}}</th>
                 <th>{{time_count[counts[i]]}}</th>
                 <th>{{notice_count[counts[i]]}}</th>
-                <td>
+                <th>
                    <form action = "Video_detail" method = "POST" enctype = "multipart/form-data">
                         <input type="hidden" id="image_name" name="image_name" value={{counts[i]}}>
                         <input id="Detail" type="submit" name="Detail" value="Detail" />
                    </form>
-                </td>
+                </th>
             </tr>
         {%endfor%}
     </table>

@@ -1,6 +1,7 @@
 from typing import List
 
 import boto3
+from boto3.dynamodb.conditions import Key, Attr
 
 def table_create():
 
@@ -93,3 +94,17 @@ def get_start_count_finish(user_id:str, filename:str):
     finish_details = response['Item']['finish_details']
     return start_time,counters_int,finish_counters, finish_details
 
+def query_user_videos(user_id: str):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('A3users')
+    response = table.query(
+        KeyConditionExpression=Key('user_id').eq(user_id)
+    )
+
+    ret_videos = []
+    videos = response['Items']
+    for video in videos:
+        ret_videos.append(video['filename'])
+    return ret_videos
+
+# print(query_user_videos('temp'))

@@ -34,6 +34,15 @@ def video_uploader():
         # Get user_id
         user_id = str(request.form['UserID'])
 
+        # Get all previous videos belongs to that user
+        video_list = ds.query_user_videos(user_id)
+        format_list = []
+
+        # format previous video list into time
+        for video in video_list:
+            format_time = datetime.datetime.fromtimestamp(int(video))
+            format_list.append(format_time)
+
         # set a storage address for the new image
         filename = user_id + "/" + str(int(time.time())) + '.mp4'
 
@@ -49,7 +58,7 @@ def video_uploader():
         response = S3.create_presigned_post('a3video', filename, fields={'success_action_redirect': url},
                                             conditions=[fields])
 
-        return render_template("video_upload.html", response=response, url=url)
+        return render_template("video_upload.html", response=response, url=url, format_list = format_list, video_list = video_list, len = len(video_list))
 
 
 """
@@ -137,7 +146,6 @@ def video_processing_start():
         global filename, filedir, real_filename, video_period, interval, start_time, plotx, ploty, image_count, start_flag, fps, user_id
 
         # if the video hasn't been sampled yet
-        print(filedir)
         if start_flag == False:
             # sample the video and save frames
             vp.video_number_processing(filedir, user_id, 'a3video', interval=interval, options=1, begin_timestamp=start_time)
@@ -147,6 +155,75 @@ def video_processing_start():
         # get the processed info of the video
         start_time, counters_int, finish_counters, finish_details = ds.get_start_count_finish(user_id,
                                                                                               filename.split('.')[0])
+
+        # init parameters
+        time_line = {}
+        time_count = {}
+        notice_count = {}
+        count = 0
+
+        # put all the samples frames index to strings
+        counters_int_new = [str(index) for index in counters_int]
+
+        # Get the people counts for each sample frame
+        for key in sorted(finish_counters.keys()):
+            count += 1
+            frame_time = int(start_time) + int(int(key) / fps)
+            time_line[str(key)] = (str(datetime.datetime.fromtimestamp(int(frame_time))))
+            time_count[str(key)] = finish_counters[key]
+
+        # Get the detail information for each sample frame
+        for key in sorted(finish_details.keys()):
+            notice = ""
+            details = finish_details[key]
+            if int(details['person_num']) != 0:
+                Not_Wearing = False
+                Smoke = False
+                for person in details['person_info']:
+                    if person['face_mask'] == 'Not Wearing':
+                        Not_Wearing = True
+                    if person['smoke'] == 'Smoking':
+                        Smoke = True
+                if Not_Wearing == True:
+                    notice = notice + "Not Wearing Face Mask"
+                if Smoke == True:
+                    if notice == "":
+                        notice = notice + "Smoking"
+                    else:
+                        notice = notice + ", Smoking"
+            if notice == "":
+                notice = "Everything is fine"
+            notice_count[str(key)] = notice
+
+        # if the completed information number doesn't equal to the required information number
+        if count != len(counters_int_new):
+            finish = False
+        else:
+            finish = True
+
+        # Render the information page for the video
+        return render_template("video_output.html", len=count, time_line=time_line, time_count=time_count,
+                               finish=finish, counts=counters_int_new, notice_count=notice_count)
+
+
+"""
+From history
+"""
+@webapp.route('/Video_processing_history', methods=['GET', 'POST'])
+def video_processing_history():
+    # http get
+    if request.method == 'POST':
+        # Set up global variables
+        global filename, filedir, real_filename, video_period, interval, start_time, plotx, ploty, image_count, start_flag, fps, user_id
+
+        filename = request.form['filename']
+
+        # get the processed info of the video
+        start_time, counters_int, finish_counters, finish_details = ds.get_start_count_finish(user_id, filename)
+
+        # video address
+        vid_adr = user_id+"/"+filename+".mp4"
+        period, fps = vp.video_info('a3video',vid_adr)
 
         # init parameters
         time_line = {}
