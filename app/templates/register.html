@@ -13,13 +13,16 @@
 
   <body>
     <h1 id="titleheader">Register an Account</h1>
-    <form onsubmit="return false;">
+    <form id="registerForm" onsubmit="return false;">
         <input type="personalname" id="personalnameRegister" placeholder="Name" pattern=".*" required>
         <input type="email" id="emailInputRegister" placeholder="Email" pattern=".*" required>
         <input type="password" id="passwordInputRegister" placeholder="Password" pattern=".*" required>
         <input type="password" id="confirmationpassword" placeholder="Confirm Password" pattern=".*" required>
         <button id="mainbutton" type="button" onclick="registerButton()" >Register</button>
     </form>
+    <form action="{{ url_for('main')}}">
+        <input type="submit" value="To login page">
+     </form>
 	<script>
 		var username;
 		var password;
@@ -71,7 +74,8 @@
 			cognitoUser = result.user;
 			console.log('user name is ' + cognitoUser.getUsername());
 			//change elements of page
-			document.getElementById("titleheader").innerHTML = "Check your email for a verification link";
+			document.getElementById("registerForm").innerHTML = `<h3>Check your email for a verification link.<br>
+			 After confirmation click the button to login.</h3>` ;
 
 		});
 	  }

@@ -94,7 +94,7 @@ def update_days():
         filename = user_id + "/" + str(int(time.time())) + '.mp4'
 
         # redirect address for local
-        url = 'http://0.0.0.0:5000/Video_upload_action'
+        url = 'http://localhost:5000/Video_upload_action'
         # redirect address for lambda
         #url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
 
