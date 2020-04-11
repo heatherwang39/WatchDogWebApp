@@ -20,6 +20,14 @@
     </form>
 
 
+    <br>
+    <br>
+
+    <form action="{{ url_for('register')}}">
+          <input type="submit" value="To register page">
+    </form>
+
+
 <script>
    function post(path, params, method='post') {
       const form = document.createElement('form');
@@ -28,13 +36,12 @@
 
       const hiddenField = document.createElement('input');
       hiddenField.type = 'hidden';
-      hiddenField.name = key;
-      hiddenField.value = params[key];
+      hiddenField.name = 'email';
+      hiddenField.value = params['email'];
 
       form.appendChild(hiddenField);
 
       document.body.appendChild(form);
-      console.log(Username)
       form.submit();
     }
 
@@ -63,9 +70,11 @@
 	cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
 			var accessToken = result.getAccessToken().getJwtToken();
-			console.log(accessToken);
-			//post('/video_uploader', {'email' : Username });
-			window.location.href="/profile";
+			//console.log(accessToken);
+			var Username = document.getElementById("inputUsername").value
+			//console.log(Username)
+			post('/uploader', {'email' : Username });
+			//window.location.href="/profile";
         },
 
         onFailure: function(err) {

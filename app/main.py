@@ -20,10 +20,10 @@ def main():
     # temp for user login
     return render_template("login.html")
 
-@webapp.route('/profile')
-def profile():
+@webapp.route('/register')
+def register():
     # temp for user login
-    return render_template("profile.html")
+    return render_template("register.html")
 
 """
 The main page for video uploading and history checking
