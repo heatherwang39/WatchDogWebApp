@@ -5,10 +5,10 @@
     <meta charset="utf-8">
 	<!-- Javascript SDKs-->
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="js/amazon-cognito-auth.min.js"></script>
+	<script src="{{ url_for('static',filename='amazon-cognito-auth.min.js')}}"></script>
 	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
-	<script src="js/amazon-cognito-identity.min.js"></script>
-	<script src="js/config.js"></script>
+	<script src="{{ url_for('static',filename='amazon-cognito-identity.min.js')}}"></script>
+	<script src="{{ url_for('static',filename='config.js')}}"></script>
   </head>
 
   <body>
@@ -21,6 +21,23 @@
 
 
 <script>
+   function post(path, params, method='post') {
+      const form = document.createElement('form');
+      form.method = method;
+      form.action = path;
+
+      const hiddenField = document.createElement('input');
+      hiddenField.type = 'hidden';
+      hiddenField.name = key;
+      hiddenField.value = params[key];
+
+      form.appendChild(hiddenField);
+
+      document.body.appendChild(form);
+      console.log(Username)
+      form.submit();
+    }
+
   function signInButton() {
 	var authenticationData = {
         Username : document.getElementById("inputUsername").value,
@@ -47,6 +64,8 @@
         onSuccess: function (result) {
 			var accessToken = result.getAccessToken().getJwtToken();
 			console.log(accessToken);
+			//post('/video_uploader', {'email' : Username });
+			window.location.href="/profile";
         },
 
         onFailure: function(err) {
@@ -54,6 +73,7 @@
         },
     });
   }
+
 </script>
 </body>
 </html>

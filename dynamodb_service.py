@@ -112,7 +112,7 @@ def query_user_videos(user_id: str):
 
 def get_userID(email):
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
     table = dynamodb.Table('A3_user_map')
     response = table.get_item(
         Key={
@@ -142,5 +142,5 @@ def put_user_id(email, user_id):
     )
 
 #put_user_id('temp@email.com', 1010)
-get_userID('temp@mail.com')
+#get_userID('temp@mail.com')
 # print(query_user_videos('temp'))

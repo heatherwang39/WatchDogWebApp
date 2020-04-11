@@ -18,8 +18,12 @@ import datetime
 @webapp.route('/')
 def main():
     # temp for user login
-    return render_template("main.html")
+    return render_template("login.html")
 
+@webapp.route('/profile')
+def profile():
+    # temp for user login
+    return render_template("profile.html")
 
 """
 The main page for video uploading and history checking
@@ -48,9 +52,9 @@ def video_uploader():
         filename = user_id + "/" + str(int(time.time())) + '.mp4'
 
         # redirect address for local
-        #url = 'http://0.0.0.0:5000/Video_upload_action'
+        url = 'http://0.0.0.0:5000/Video_upload_action'
         # redirect address for lambda
-        url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
+        #url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
 
         # set redirect address for S3
         fields = {'success_action_redirect': url}

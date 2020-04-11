@@ -5,21 +5,21 @@
     <meta charset="utf-8">
     <!-- Javascript SDK-->
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="js/amazon-cognito-auth.min.js"></script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
-    <script src="js/amazon-cognito-identity.min.js"></script>
-    <script src="js/config.js"></script>
+	<script src="{{ url_for('static', filename='amazon-cognito-auth.min.js')}}"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+	<script src="{{ url_for('static', filename='amazon-cognito-identity.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='config.js')}}"></script>
   </head>
 
   <body>
     <h1 id="titleheader">Register an Account</h1>
-
-	<input type="personalname" id="personalnameRegister" placeholder="Name" pattern=".*" required>
-    <input type="email" id="emailInputRegister" placeholder="Email" pattern=".*" required>
-	<input type="password" id="passwordInputRegister" placeholder="Password" pattern=".*" required>
-    <input type="password" id="confirmationpassword" placeholder="Confirm Password" pattern=".*" required>
-	<button id="mainbutton" type="button" onclick="registerButton()" >Register</button>
-
+    <form onsubmit="return false;">
+        <input type="personalname" id="personalnameRegister" placeholder="Name" pattern=".*" required>
+        <input type="email" id="emailInputRegister" placeholder="Email" pattern=".*" required>
+        <input type="password" id="passwordInputRegister" placeholder="Password" pattern=".*" required>
+        <input type="password" id="confirmationpassword" placeholder="Confirm Password" pattern=".*" required>
+        <button id="mainbutton" type="button" onclick="registerButton()" >Register</button>
+    </form>
 	<script>
 		var username;
 		var password;
