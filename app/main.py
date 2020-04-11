@@ -33,7 +33,7 @@ The main page for video uploading and history checking
 @webapp.route('/uploader', methods=['GET', 'POST'])
 def video_uploader():
     if request.method == 'POST':
-        global user_id
+        global user_id, user_email
 
         # Get user_id
         user_email = str(request.form['email'])
@@ -47,6 +47,9 @@ def video_uploader():
         for video in video_list:
             format_time = datetime.datetime.fromtimestamp(int(video))
             format_list.append(format_time)
+
+        saving_length = ds.get_saving_time(user_email)
+        saving_days = int(saving_length/86400)
 
         # set a storage address for the new image
         filename = user_id + "/" + str(int(time.time())) + '.mp4'
@@ -63,7 +66,46 @@ def video_uploader():
         response = S3.create_presigned_post('a3video', filename, fields={'success_action_redirect': url},
                                             conditions=[fields])
 
-        return render_template("video_upload.html", response=response, url=url, format_list = format_list, video_list = video_list, len = len(video_list))
+        return render_template("video_upload.html", saving_days = saving_days,response=response, url=url, format_list = format_list, video_list = video_list, len = len(video_list))
+
+
+@webapp.route('/update_days', methods=['GET', 'POST'])
+def update_days():
+    if request.method == 'POST':
+        global user_id, user_email
+
+        # Get user_id
+        days = str(request.form['username'])
+        ds.put_saving_time(user_email, days)
+
+        # Get all previous videos belongs to that user
+        video_list = ds.query_user_videos(user_id)
+        format_list = []
+
+        # format previous video list into time
+        for video in video_list:
+            format_time = datetime.datetime.fromtimestamp(int(video))
+            format_list.append(format_time)
+
+        saving_length = ds.get_saving_time(user_email)
+        saving_days = int(saving_length/86400)
+
+        # set a storage address for the new image
+        filename = user_id + "/" + str(int(time.time())) + '.mp4'
+
+        # redirect address for local
+        url = 'http://0.0.0.0:5000/Video_upload_action'
+        # redirect address for lambda
+        #url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
+
+        # set redirect address for S3
+        fields = {'success_action_redirect': url}
+
+        # Get a presigned post info
+        response = S3.create_presigned_post('a3video', filename, fields={'success_action_redirect': url},
+                                            conditions=[fields])
+
+        return render_template("video_upload.html", saving_days = saving_days,response=response, url=url, format_list = format_list, video_list = video_list, len = len(video_list))
 
 
 """

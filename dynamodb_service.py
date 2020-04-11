@@ -127,8 +127,19 @@ def get_userID(email):
         put_user_id(email, user_id)
         return user_id
 
+def get_saving_time(email):
+    # Get the service resource.
+    dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+    table = dynamodb.Table('A3_user_map')
+    response = table.get_item(
+        Key={
+            'email': email
+        }
+    )
+    return int(response['Item']['saving_period'])
 
-def put_user_id(email, user_id):
+
+def put_user_id(email, user_id, saving_period = 2592000):
     # Get the service resource.
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3_user_map')
@@ -137,9 +148,22 @@ def put_user_id(email, user_id):
         Item={
             'email': email,
             'user_id': user_id,
-            'saving_period': 2592000
+            'saving_period': saving_period
         }
     )
+
+def put_saving_time(email, saving_Days):
+    # Get the service resource.
+    dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+    table = dynamodb.Table('A3_user_map')
+    response = table.get_item(
+        Key={
+            'email': email
+        }
+    )
+    user_id = int(response['Item']['user_id'])
+    saving_period = int(saving_Days)*86400
+    put_user_id(email,user_id,saving_period)
 
 #put_user_id('temp@email.com', 1010)
 #get_userID('temp@mail.com')
