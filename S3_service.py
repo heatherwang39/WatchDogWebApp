@@ -18,6 +18,8 @@ def upload_file(file, bucket='a3user', filename=None, file_directory="videos/"):
     """
 
     # If S3 object_name was not specified, use file_name
+
+
     if filename == None:
         filename = file.filename
 

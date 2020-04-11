@@ -51,7 +51,9 @@
       <input type="hidden" name="Signature" value={{response['fields']['signature']}} />
       <input type="hidden" name="success_action_redirect" value={{url}} />
     Video in MP4:<br>
-      <input type="file"   name="file" /> <br/>
+      <div>
+      <input type="file" name="file" accept="video/mp4" /> <br/>
+      </div>
       <input type="submit" name="submit" value="Upload" />
     </form>
   </body>
