@@ -9,7 +9,7 @@ import random
 def table_create():
 
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 
     # Create the DynamoDB table.
     table = dynamodb.create_table(
@@ -42,7 +42,7 @@ def table_create():
 
 def put_user_video(user_id, filename,count,finish_count,finish_details,start_time):
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3users')
 
     table.put_item(
@@ -60,7 +60,7 @@ def put_user_video(user_id, filename,count,finish_count,finish_details,start_tim
 
 def add_finish_counter(user_id:str, filename:str, finish_counter:int, finish_detail: dict, people_num:int):
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3users')
     response = table.get_item(
         Key={
@@ -82,7 +82,7 @@ def add_finish_counter(user_id:str, filename:str, finish_counter:int, finish_det
 
 def get_start_count_finish(user_id:str, filename:str):
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3users')
     response = table.get_item(
         Key={
@@ -98,7 +98,7 @@ def get_start_count_finish(user_id:str, filename:str):
     return start_time,counters_int,finish_counters, finish_details
 
 def query_user_videos(user_id: str):
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3users')
     response = table.query(
         KeyConditionExpression=Key('user_id').eq(user_id)
@@ -112,7 +112,7 @@ def query_user_videos(user_id: str):
 
 def get_userID(email):
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3_user_map')
     response = table.get_item(
         Key={
@@ -130,7 +130,7 @@ def get_userID(email):
 
 def put_user_id(email, user_id):
     # Get the service resource.
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table('A3_user_map')
 
     table.put_item(
@@ -142,5 +142,5 @@ def put_user_id(email, user_id):
     )
 
 #put_user_id('temp@email.com', 1010)
-get_userID('temp@mail.com')
+#get_userID('temp@mail.com')
 # print(query_user_videos('temp'))
