@@ -50,9 +50,57 @@
       <input type="hidden" name="x-amz-security-token" value={{response['fields']['x-amz-security-token']}} />
       <input type="hidden" name="Signature" value={{response['fields']['signature']}} />
       <input type="hidden" name="success_action_redirect" value={{url}} />
-    Video in MP4:<br>
-      <input type="file"   name="file" /> <br/>
+    Please Upload Video in MP4:<br>
+      <div>
+      <input type="file" name="file" accept="video/mp4" onchange="fileChange(this);" /> <br/>
+      </div>
       <input type="submit" name="submit" value="Upload" />
     </form>
+    <!-- Set limitation for type of video uploaded -->
+    <script type="text/javascript">
+        var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+        function fileChange(target, id) {
+            var fileSize = 0;
+            var filetypes = [".mp4"];
+            var filepath = target.value;
+            if (filepath) {
+                var isnext = false;
+                var fileend = filepath.substring(filepath.lastIndexOf("."));
+                if (filetypes && filetypes.length > 0) {
+                    for (var i = 0; i < filetypes.length; i++) {
+                        if (filetypes[i] == fileend) {
+                            isnext = true;
+                            break;
+                        }
+                    }
+                }
+                if (!isnext) {
+                    alert("File type not accepted");
+                    target.value = "";
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            if (isIE && !target.files) {
+                var filePath = target.value;
+                var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+                if (!fileSystem.FileExists(filePath)) {
+                    alert("File no exist!");
+                    return false;
+                }
+                var file = fileSystem.GetFile(filePath);
+                fileSize = file.Size;
+            } else {
+                fileSize = target.files[0].size;
+            }
+            var size = fileSize / 1024;
+            if (size <= 0) {
+                alert("File size cannot be 0");
+                target.value = "";
+                return false;
+            }
+        }
+    </script>
   </body>
 </html>
