@@ -73,8 +73,11 @@
 			//console.log(accessToken);
 			var Username = document.getElementById("inputUsername").value
 			//console.log(Username)
-			post('/uploader', {'email' : Username });
-			//window.location.href="/profile";
+			//local
+			//post('/uploader', {'email' : Username });
+			//remote
+			post('/dev/uploader', {'email' : Username });
+			//window.location.href="/dev/profile";
         },
 
         onFailure: function(err) {
