@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/layout.css">
     <title>video_output</title>
     <style>
     table {
@@ -10,11 +11,6 @@
       width: 50%;
     }
 
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
 
     tr:nth-child(even) {
       background-color: #dddddd;
@@ -22,11 +18,21 @@
     </style>
 </head>
 <body>
+<header>
+    <div class="main">
+        <ul>
+            <li><a href="javascript:history.back()">Go Back</a></li>
+            <li><a href="{{ url_for('video_uploader')}}">Home</a></li>
+            <li><a href="{{ url_for('main')}}">Logout</a></li>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+        </ul>
+    </div>
     <h2>Result for the video</h2>
     {%if finish == False%}
     <h3>Please keeping refreshing to see more results</h3>
     {%endif%}
     <br>
+    <div class ="content-table">
     <table>
       <tr>
         <th>Time</th>
@@ -39,14 +45,16 @@
                 <th>{{time_line[counts[i]]}}</th>
                 <th>{{time_count[counts[i]]}}</th>
                 <th>{{notice_count[counts[i]]}}</th>
-                <th>
+                <td>
                    <form action = "Video_detail" method = "POST" enctype = "multipart/form-data">
                         <input type="hidden" id="image_name" name="image_name" value={{counts[i]}}>
                         <input id="Detail" type="submit" name="Detail" value="Detail" />
                    </form>
-                </th>
+                </td>
             </tr>
         {%endfor%}
     </table>
+    </div>
+    </header>
 </body>
 </html>

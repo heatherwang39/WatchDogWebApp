@@ -2,23 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/layout.css">
     <title>Video Configuration</title>
 </head>
 <body>
-    <h1>Here is the information of your uploaded video:</h1>
-    <h2>Video upload_time: {{tim}}</h2>
-    <h2>Video Length: {{Video_length}}</h2>
-    <br>
-    <h3> Video Processing Configuration</h3>
-    <form action = "Video_config_confirm" method = "POST" enctype = "multipart/form-data">
-        <label for="start-time">Choose the start time of the video:</label>
-        <input type="datetime-local" id="start-time"
-               name="start-time" value="2020-04-05T19:30"><br>
-        <label for="interval">Sampling frequency in seconds:</label>
-        <input type="number" id="interval" name="interval"
-               value={{init_interval}}
-               min="1" max={{video_period}}><br>
-        <input value = "Start Processing" type = "submit"/>
-    </form>
+<header>
+    <div class="main">
+        <ul>
+            <li><a href="{{ url_for('video_uploader')}}">Home</a></li>
+            <li><a href="{{ url_for('main')}}">Logout</a></li>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+        </ul>
+    </div>
+
+    <div class="title">
+        <h1>Configure your uploaded video:</h1>
+    </div>
+    <div class="content">
+        <h2>Video upload time: {{tim}}</h2>
+        <h2>Video Length: {{Video_length}}</h2>
+        <br>
+        <h3> Video Processing Configuration</h3>
+        <form action = "Video_config_confirm" method = "POST" enctype = "multipart/form-data">
+            <label for="start-time">Choose the start time of the video:</label>
+            <input type="datetime-local" id="start-time"
+                   name="start-time" value="2020-04-05T19:30"><br>
+            <label for="interval">Sampling frequency in seconds:</label>
+            <input type="number" id="interval" name="interval"
+                   value={{init_interval}}
+                   min="1" max={{video_period}}><br>
+            <input value = "Start Processing" type = "submit"/>
+        </form>
+    </div>
+</header>
 </body>
 </html>

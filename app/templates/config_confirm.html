@@ -2,13 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/layout.css">
     <title>config confirm</title>
 </head>
 <body>
+<header>
+    <div class="main">
+        <ul>
+            <li><a href="{{ url_for('video_uploader')}}">Home</a></li>
+            <li><a href="{{ url_for('main')}}">Logout</a></li>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+        </ul>
+    </div>
+    <div class="content">
     <h1>Video start time: {{start_time}}</h1><br>
-    <h1>Estimated processing time will be: {{time}}</h1><br>
+    <h1>Estimated processing time: {{time}}</h1><br>
     <form action = "Video_processing_start" method = "get">
         <input value = "Confirm and Start" type = "submit"/>
     </form>
+    </div>
+</header>
 </body>
 </html>

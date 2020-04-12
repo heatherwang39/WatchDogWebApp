@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/layout.css">
     <title>video_detail</title>
 </head>
 <body>
+<header>
+    <div class="main">
+        <ul>
+            <li><a href="javascript:history.back()">Go Back</a></li>
+            <li><a href="{{ url_for('video_uploader')}}">Home</a></li>
+            <li><a href="{{ url_for('main')}}">Logout</a></li>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+
+        </ul>
+    </div>
+    <div class="title">
     {% if person_num == 0%}
         <h1>Nobody can be analyzed in detail</h1>
     {% elif person_num == 1%}
@@ -12,7 +24,9 @@
     {% else %}
         <h1>{{person_num}} people can be analyzed in detail</h1>
     {% endif%}
+     </div>
     <br>
+    <div class = "content">
     <img src="{{ processed_address }}" alt="User Image">
     <br><br>
     {% for person in person_list%}
@@ -24,6 +38,7 @@
         <h3>Smoking: {{person['smoke']}}</h3>
         <h3>Face Mask: {{person['face_mask']}}</h3>
     {% endfor %}
+    </div>
 
 </body>
 </html>

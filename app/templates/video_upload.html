@@ -1,67 +1,65 @@
 <html>
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-    }
-
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
-
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
-    </style>
-  </head>
-  <body>
+    <link rel="stylesheet" type="text/css" href="../static/css/layout.css">
+</head>
+<body>
+<header>
+    <div class="main">
+        <ul>
+            <li><a href="{{ url_for('video_uploader')}}">Home</a></li>
+            <li><a href="{{ url_for('main')}}">Logout</a></li>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+        </ul>
+    </div>
+    <div class="content-table">
     <h2>History:</h2>
     <table>
         <tr>
-          <th>Time</th>
+            <th>Time</th>
             <th>View Details</th>
         </tr>
-          {%for i in range(0, len)%}
-              <tr>
-                  <th>{{format_list[i]}}</th>
-                  <th>
-                     <form action = "Video_processing_history" method = "POST" enctype = "multipart/form-data">
-                          <input type="hidden" id="filename" name="filename" value={{video_list[i]}}>
-                          <input id="Detail" type="submit" name="Detail" value="Detail" />
-                     </form>
-                  </th>
-              </tr>
-          {%endfor%}
-      </table>
+        {%for i in range(0, len)%}
+        <tr>
+            <th>{{format_list[i]}}</th>
+            <th>
+                <form action = "Video_processing_history" method = "POST" enctype = "multipart/form-data">
+                    <input type="hidden" id="filename" name="filename" value={{video_list[i]}}>
+                    <input id="Detail" type="submit" name="Detail" value="Detail" />
+                </form>
+            </th>
+        </tr>
+        {%endfor%}
+    </table>
+    </div>
 
     <br>
+    <div class = "update">
     <h3>Each video will be saved for</h3>
     <form action="{{ url_for('update_days')}}" method="post">
-      <input type="number" name="username" value="{{saving_days}}" required autofocus>
-      <input type="submit" name="submit" value="update" />
+        <input type="number" name="username" value="{{saving_days}}" required autofocus>
+        <input type="submit" name="submit" value="update" />
     </form>
     <h3>Days</h3>
     <br>
+    </div>
 
+    <div class="content">
     <h2>New video</h2>
     <!-- Copy the 'url' value returned by S3Client.generate_presigned_post() -->
     <form action={{response['url']}} method="post" enctype="multipart/form-data">
-      <!-- Copy the 'fields' key:values returned by S3Client.generate_presigned_post() -->
-      <input type="hidden" name="key" value={{response['fields']['key']}} />
-      <input type="hidden" name="AWSAccessKeyId" value = {{response['fields']['AWSAccessKeyId']}} />
-      <input type="hidden" name="policy" value={{response['fields']['policy']}} />
-      <input type="hidden" name="x-amz-security-token" value={{response['fields']['x-amz-security-token']}} />
-      <input type="hidden" name="Signature" value={{response['fields']['signature']}} />
-      <input type="hidden" name="success_action_redirect" value={{url}} />
-    Please Upload Video in MP4:<br>
-      <div>
-      <input type="file" name="file" accept="video/mp4" onchange="fileChange(this);" /> <br/>
-      </div>
-      <input type="submit" name="submit" value="Upload" />
+        <!-- Copy the 'fields' key:values returned by S3Client.generate_presigned_post() -->
+        <input type="hidden" name="key" value={{response['fields']['key']}} />
+        <input type="hidden" name="AWSAccessKeyId" value = {{response['fields']['AWSAccessKeyId']}} />
+        <input type="hidden" name="policy" value={{response['fields']['policy']}} />
+        <input type="hidden" name="x-amz-security-token" value={{response['fields']['x-amz-security-token']}} />
+        <input type="hidden" name="Signature" value={{response['fields']['signature']}} />
+        <input type="hidden" name="success_action_redirect" value={{url}} />
+        Please Upload Video in MP4:<br>
+        <div>
+            <input type="file" name="file" accept="video/mp4" onchange="fileChange(this);" /> <br/>
+        </div>
+        <input type="submit" name="submit" value="Upload" />
     </form>
     <!-- Set limitation for type of video uploaded -->
     <script type="text/javascript">
@@ -109,5 +107,7 @@
             }
         }
     </script>
-  </body>
+    </div>
+</header>
+</body>
 </html>

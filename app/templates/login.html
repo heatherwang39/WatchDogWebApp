@@ -1,90 +1,94 @@
 <!DOCTYPE html>
-
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
-	<!-- Javascript SDKs-->
-	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="{{ url_for('static',filename='amazon-cognito-auth.min.js')}}"></script>
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
-	<script src="{{ url_for('static',filename='amazon-cognito-identity.min.js')}}"></script>
-	<script src="{{ url_for('static',filename='config.js')}}"></script>
-  </head>
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <!-- Javascript SDKs-->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="{{ url_for('static',filename='amazon-cognito-auth.min.js')}}"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+    <script src="{{ url_for('static',filename='amazon-cognito-identity.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='config.js')}}"></script>
+    <title>login</title>
 
-  <body>
-    <form>
-      <h1>Please sign in</h1>
-      <input type="text" id="inputUsername"  placeholder="Email address" name="username" required autofocus>
-      <input type="password" id="inputPassword"  placeholder="Password" name="password" required>
-      <button type="button" onclick="signInButton()">Sign in</button>
-    </form>
+</head>
 
+<body>
+<header>
+    <div class="main">
+        <ul>
+            <li><a href="{{ url_for('register')}}">Register</a></li>
+        </ul>
+    </div>
+    <div class="title">
+        <h1>CCTV WATCHDOG</h1>
+    </div>
+    <div class="form">
+        <form>
+            <input type="text" id="inputUsername" placeholder="Email address" name="username" required autofocus>
+            <input type="password" id="inputPassword" placeholder="Password" name="password" required>
+            <button type="button" onclick="signInButton()">Sign in</button>
+        </form>
+    </div>
 
-    <br>
-    <br>
-
-    <form action="{{ url_for('register')}}">
-          <input type="submit" value="To register page">
-    </form>
-
-
+</header>
 <script>
-   function post(path, params, method='post') {
-      const form = document.createElement('form');
-      form.method = method;
-      form.action = path;
+    function post(path, params, method='post') {
+        const form = document.createElement('form');
+        form.method = method;
+        form.action = path;
 
-      const hiddenField = document.createElement('input');
-      hiddenField.type = 'hidden';
-      hiddenField.name = 'email';
-      hiddenField.value = params['email'];
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'email';
+        hiddenField.value = params['email'];
 
-      form.appendChild(hiddenField);
+        form.appendChild(hiddenField);
 
-      document.body.appendChild(form);
-      form.submit();
+        document.body.appendChild(form);
+        form.submit();
     }
 
-  function signInButton() {
-	var authenticationData = {
-        Username : document.getElementById("inputUsername").value,
-        Password : document.getElementById("inputPassword").value,
-    };
+    function signInButton() {
+        var authenticationData = {
+            Username : document.getElementById("inputUsername").value,
+            Password : document.getElementById("inputPassword").value,
+        };
 
-    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
-	var poolData = {
-        UserPoolId : _config.cognito.userPoolId, // user pool id
-        ClientId : _config.cognito.clientId, // client id
-    };
+        var poolData = {
+            UserPoolId : _config.cognito.userPoolId, // user pool id
+            ClientId : _config.cognito.clientId, // client id
+        };
 
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+        var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-    var userData = {
-        Username : document.getElementById("inputUsername").value,
-        Pool : userPool,
-    };
+        var userData = {
+            Username : document.getElementById("inputUsername").value,
+            Pool : userPool,
+        };
 
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+        var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-	cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-			var accessToken = result.getAccessToken().getJwtToken();
-			//console.log(accessToken);
-			var Username = document.getElementById("inputUsername").value
-			//console.log(Username)
-			//local
-			//post('/uploader', {'email' : Username });
-			//remote
-			post('/dev/uploader', {'email' : Username });
-			//window.location.href="/dev/profile";
-        },
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: function (result) {
+                var accessToken = result.getAccessToken().getJwtToken();
+                //console.log(accessToken);
+                var Username = document.getElementById("inputUsername").value
+                //console.log(Username)
+                //local
+                //post('/uploader', {'email' : Username });
+                //remote
+                post('/dev/uploader', {'email' : Username });
+                //window.location.href="/dev/profile";
+            },
 
-        onFailure: function(err) {
-            alert(err.message || JSON.stringify(err));
-        },
-    });
-  }
+            onFailure: function(err) {
+                alert(err.message || JSON.stringify(err));
+            }
+        });
+    }
 
 </script>
 </body>
