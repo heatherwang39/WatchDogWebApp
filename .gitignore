@@ -1,5 +1,4 @@
 *.mp4
-app/static/*
 frames
 venv/
 __pycache__/
