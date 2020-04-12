@@ -1,3 +1,5 @@
+import math
+
 import cv2
 import image_process as IP
 import BaiduPeopleCounter as BP
@@ -45,9 +47,8 @@ def video_number_processing(filedir_s,user_id, bucket_name, interval, options, b
         # get the filename
         filename = filedir_s.split('/')[1]
         timestamp = filename.split('.')[0]
-        samples = [int(index * interval_frames) for index in range(int(period / interval))]
+        samples = [int(index * interval_frames) for index in range(math.ceil(period / interval))]
         ds.put_user_video(user_id, filename.split('.')[0], samples, {}, {}, begin_timestamp)
-
         while True:
             success, image = vid.read()
             if not success:

@@ -97,7 +97,7 @@ def update_days():
 
         url = 'http://localhost:5000/Video_upload_action'
         # redirect address for lambda
-        url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
+        # url = 'https://ax7l11065f.execute-api.us-east-1.amazonaws.com/dev/Video_upload_action'
 
         # set redirect address for S3
         fields = {'success_action_redirect': url}
@@ -135,6 +135,7 @@ def upload_file():
         # Get the info of the uploaded video
         bucket_name = 'a3video'
         video_period, fps = vp.video_info(bucket_name, filedir)
+        video_period = int(video_period)
         format_period = str(datetime.timedelta(seconds=video_period))
         init_interval = max(int(video_period / 10), 1)
 
@@ -170,7 +171,7 @@ def confirm_config():
         interval = float(request.form['interval'])
 
         # Calculate the estimation of the processing time
-        processing_time = (video_period / interval) * 15
+        processing_time = int((video_period / interval) * 15)
         format_processing_time = str(datetime.timedelta(seconds=processing_time))
 
         # Render the confirmation page
@@ -251,7 +252,7 @@ def video_processing_start():
 
         # Render the information page for the video
         return render_template("video_output.html", len=count, time_line=time_line, time_count=time_count,
-                               finish=finish, counts=counters_int_new, notice_count=notice_count)
+                               finish=finish, counts=sorted(finish_details.keys()), notice_count=notice_count)
 
 
 """
